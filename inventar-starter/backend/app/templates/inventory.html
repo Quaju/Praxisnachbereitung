@@ -28,6 +28,29 @@
           <li>Baut hier eine einfache Übersicht für Geräte und Ausleihen.</li>
           <li>Nutzt den <code>grades-starter</code> als Referenz für Formulare, Templates und CRUD-Muster.</li>
         </ul>
+        <h1>Liste Geräte</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Seriennummer</th>
+              <th>Gerätetyp</th>
+              <th>Modell</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in devices %}
+              <tr>
+                <td>{{ d.serial_number }}</td>
+                <td>{{ d.type_name }}</td>
+                <td>{{ d.device_model }}</td>
+              </tr>
+            {% else %}
+              <tr>
+                <td colspan="3">Keine Geräte vorhanden</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </body>

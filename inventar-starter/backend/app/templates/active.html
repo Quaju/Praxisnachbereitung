@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title }}</title>
+    <style>
+      :root { font-family: -apple-system, system-ui, Segoe UI, Roboto, Ubuntu, Cantarell, Helvetica, Arial; }
+      body { margin: 0; padding: 2rem; background: #f3f4f6; }
+      .card { max-width: 920px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.05); }
+      h1 { margin-top: 0; }
+      code { background: #f6f8fa; padding: .15rem .35rem; border-radius: 4px; }
+      .hint { color: #4b5563; }
+      .box { margin-top: 1.5rem; padding: 1rem 1.25rem; border: 1px solid #e5e7eb; border-radius: 12px; background: #f9fafb; }
+      table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: white; }
+      th, td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; font-size: 0.95rem; }
+      th { background: #f9fafb; }
+      .nav-links { margin-bottom: 1rem; font-size: 0.9rem; }
+      .nav-links a { color: #2563eb; text-decoration: none; }
+      .nav-links a:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Inventar Starter</h1>
+      <div class="nav-links">
+        <a href="/devices">← Zurück zur Geräteübersicht</a>
+      </div>
+
+      <div class="box">
+        <h2>Aktive Zuweisungen (ohne Enddatum)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>MitarbeiterID</th>
+              <th>Seriennummer</th>
+              <th>Gerätemodell</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for a in assignments %}
+              <tr>
+                <td>{{ a.mitarbeiter_id }}</td>
+                <td>{{ a.serial_number }}</td>
+                <td>{{ a.device_model }}</td>
+              </tr>
+            {% else %}
+              <tr>
+                <td colspan="3" class="hint">Keine aktiven Zuweisungen vorhanden.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
