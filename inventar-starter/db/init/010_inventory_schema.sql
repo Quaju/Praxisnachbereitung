@@ -32,7 +32,7 @@ create table if not exists person (
     location_id int not null references location_info(location_id) on delete cascade
 );
 
-create table if not exists device (
+create table if not exists devices (
     device_id serial primary key,
     serial_number text not null unique,
     device_type int not null references device_type(device_type_id) on delete cascade,
@@ -45,7 +45,7 @@ create table if not exists device (
 create table if not exists assignment (
     assignment_id serial primary key,
     person_id int not null references person(person_id) on delete cascade,
-    device_id int not null references device(device_id) on delete cascade,
+    device_id int not null references devices(device_id) on delete cascade,
     issue_date date not null,
     return_date date
 );
@@ -59,7 +59,13 @@ insert into department(abteilung) values
 insert into device_type(type_name) values
     ('Laptop'),
     ('Monitor'),
-    ('Handscanner');
+    ('Tablet');
+
+insert into location_info(standort) values
+    ('Berlin'),
+    ('Hamburg'),
+    ('München');
+
 
 insert into person (mitarbeiter_id, first_name, last_name, department_id, location_id)
 select p.mitarbeiter_id, p.first_name, p.last_name, d.department_id, l.location_id
@@ -72,7 +78,7 @@ join department d on d.abteilung = p.abteilung
 join location_info l on l.standort = p.standort
 on conflict do nothing;
 
-insert into device (serial_number, device_type, device_model, buy_date, net_price, device_location)
+insert into devices (serial_number, device_type, device_model, buy_date, net_price, device_location)
 select d.serial_number, dt.device_type_id, d.device_model, d.buy_date, d.net_price, l.location_id
 from (values
     ('G0012', 'Tablet', 'Galaxy Tab', date '2022-06-01', 968.43, 'Hamburg'),
@@ -90,6 +96,6 @@ from (values
     ('1002', 'G0021', date '2024-06-29', date '2025-06-29'),
     ('1003', 'G0024', date '2024-05-09', date '2024-06-09')
 ) as a(mitarbeiter_id, serial_number, issue_date, return_date)
-join device d on d.serial_number = a.serial_number
+join devices d on d.serial_number = a.serial_number
 join person p on p.mitarbeiter_id = a.mitarbeiter_id
 on conflict do nothing;

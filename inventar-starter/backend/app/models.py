@@ -22,3 +22,11 @@ class AssignmentCreate(BaseModel):
 class AssignmentReturn(BaseModel):
   returned_at: str | None = None
 
+class Device(BaseModel):
+  device_id: int
+  serial_number: str
+  device_type_id: int
+  device_model: str
+  buy_date: str
+  net_price: float
+  device_location_id: int
